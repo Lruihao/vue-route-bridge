@@ -23,10 +23,20 @@ npm install vue-route-bridge
 ```ts
 import { createChildGuard } from 'vue-route-bridge'
 
-// 在 router 初始化后调用
 createChildGuard(router, {
   eventType: 'MY_APP_ROUTE_CHANGE',
-  targetOrigin: '*', // 生产环境建议设置为具体域名
+})
+```
+
+当子应用有独立的路由前缀（如 `/ai/chat`）时，使用 `transform` 在发送前修改：
+
+```ts
+createChildGuard(router, {
+  eventType: 'MY_APP_ROUTE_CHANGE',
+  transform(to) {
+    to.fullPath = to.fullPath.replace(/^\/ai/, '') || '/'
+    to.path = to.path.replace(/^\/ai/, '') || '/'
+  },
 })
 ```
 
@@ -102,6 +112,7 @@ export default {
 - `router`: Vue Router 实例（v3 或 v4）
 - `options.eventType`: 事件类型字符串，默认 `'VUE_ROUTE_BRIDGE_CHANGE'`
 - `options.targetOrigin`: postMessage 的 targetOrigin，默认 `'*'`
+- `options.transform`: 路由快照转换钩子，可在发送前修改快照（原地修改或返回新对象）
 - `options.filter`: 过滤函数，返回 false 跳过本次同步
 
 ### `createParentListener(options)`

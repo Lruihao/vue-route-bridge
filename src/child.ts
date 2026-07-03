@@ -18,10 +18,15 @@ export function createChildGuard(
 
   const eventType = options.eventType || 'VUE_ROUTE_BRIDGE_CHANGE'
   const targetOrigin = options.targetOrigin || '*'
+  const transform = options.transform
   const filter = options.filter
 
   const guard = (to: any) => {
-    const snapshot = cloneRoute(to)
+    let snapshot = cloneRoute(to)
+    if (transform) {
+      const result = transform(snapshot)
+      if (result) snapshot = result
+    }
     if (filter && !filter(snapshot)) return
     window.parent?.postMessage(
       { type: eventType, to: snapshot },

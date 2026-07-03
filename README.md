@@ -23,10 +23,20 @@ npm install vue-route-bridge
 ```ts
 import { createChildGuard } from 'vue-route-bridge'
 
-// Call after router initialization
 createChildGuard(router, {
   eventType: 'MY_APP_ROUTE_CHANGE',
-  targetOrigin: '*', // set to specific domain in production
+})
+```
+
+When the child app has its own route prefix (e.g. `/ai/chat`), use `transform` to modify the snapshot before sending:
+
+```ts
+createChildGuard(router, {
+  eventType: 'MY_APP_ROUTE_CHANGE',
+  transform(to) {
+    to.fullPath = to.fullPath.replace(/^\/ai/, '') || '/'
+    to.path = to.path.replace(/^\/ai/, '') || '/'
+  },
 })
 ```
 
@@ -102,6 +112,7 @@ Register a Vue Router afterEach guard that posts route changes to the parent win
 - `router`: Vue Router instance (v3 or v4)
 - `options.eventType`: Event type string, default `'VUE_ROUTE_BRIDGE_CHANGE'`
 - `options.targetOrigin`: targetOrigin for postMessage, default `'*'`
+- `options.transform`: Transform hook to modify the route snapshot before posting (modify in place or return a new object)
 - `options.filter`: Filter function, return false to skip syncing for this route change
 
 ### `createParentListener(options)`

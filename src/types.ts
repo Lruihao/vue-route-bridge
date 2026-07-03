@@ -15,6 +15,8 @@ export interface ChildGuardOptions {
   eventType?: string
   /** Origin passed to postMessage. Default: '*' */
   targetOrigin?: string
+  /** Transform the route snapshot before posting. Return a new snapshot or modify in place. */
+  transform?: (snapshot: RouteSnapshot) => RouteSnapshot | void
   /** Return false to skip posting this route change */
   filter?: (to: RouteSnapshot) => boolean
 }
