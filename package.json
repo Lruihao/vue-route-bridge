@@ -1,0 +1,76 @@
+{
+  "name": "vue-route-bridge",
+  "type": "module",
+  "version": "0.1.0",
+  "packageManager": "pnpm@11.1.2",
+  "description": "Vue iframe parent-child route synchronization via postMessage",
+  "author": "Lruihao (https://lruihao.cn)",
+  "license": "MIT",
+  "homepage": "https://github.com/Lruihao/vue-route-bridge#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lruihao/vue-route-bridge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Lruihao/vue-route-bridge/issues"
+  },
+  "keywords": [
+    "vue",
+    "vue-router",
+    "iframe",
+    "postMessage",
+    "route-sync",
+    "parent-child"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./vue2": {
+      "types": "./dist/vue2.d.ts",
+      "import": "./dist/vue2.mjs",
+      "require": "./dist/vue2.cjs"
+    },
+    "./vue3": {
+      "types": "./dist/vue3.d.ts",
+      "import": "./dist/vue3.mjs",
+      "require": "./dist/vue3.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "version": "auto-changelog-plus -p && git add CHANGELOG.md",
+    "postversion": "git push --tags && git push",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.0 || ^3.0.0",
+    "vue-router": "^3.0.0 || ^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "vue": {
+      "optional": true
+    },
+    "vue-router": {
+      "optional": true
+    },
+    "@vue/composition-api": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "auto-changelog-plus": "^1.3.0",
+    "tsdown": "^0.22.3",
+    "typescript": "^5.0.0",
+    "vue": "^3.5.39"
+  }
+}
