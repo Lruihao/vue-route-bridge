@@ -1,7 +1,7 @@
 {
   "name": "vue-route-bridge",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "packageManager": "pnpm@11.1.2",
   "description": "Vue iframe parent-child route synchronization via postMessage",
   "author": "Lruihao (https://lruihao.cn)",
