@@ -80,18 +80,25 @@ export function createRouterSync(
   const loginRouteNames = options.loginRouteNames || ['login']
   const stripQuery = options.stripQuery || ['token', 'from']
   const onLogin = options.onLogin
+  const transform = options.transform
 
   handle.onMessage((to) => {
-    if (loginRouteNames.includes(to.name as string)) {
-      onLogin?.(to)
+    let snapshot = to
+    if (transform) {
+      const result = transform(snapshot)
+      if (result) snapshot = result
+    }
+
+    if (loginRouteNames.includes(snapshot.name as string)) {
+      onLogin?.(snapshot)
       return
     }
 
-    const path = `${prefix}${to.fullPath}`
+    const path = `${prefix}${snapshot.fullPath}`
 
     if (parentRouter.currentRoute?.fullPath === path) return
 
-    const query = { ...to.query }
+    const query = { ...snapshot.query }
     for (const key of stripQuery) {
       delete query[key]
     }

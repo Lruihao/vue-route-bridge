@@ -49,4 +49,6 @@ export interface ParentListenerHandle {
 export interface RouterSyncOptions extends ParentListenerOptions {
   /** Called when child navigates to a login route */
   onLogin?: (to: RouteSnapshot) => void
+  /** Transform the received route snapshot before syncing to the parent router. Return a new snapshot or modify in place. */
+  transform?: (snapshot: RouteSnapshot) => RouteSnapshot | void
 }

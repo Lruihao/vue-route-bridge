@@ -136,6 +136,7 @@ export default {
 - `options.onLogin`: 登录路由拦截回调
 - `options.loginRouteNames`: 触发登录拦截的路由名，默认 `['login']`
 - `options.stripQuery`: 需要剥离的 query 参数，默认 `['token', 'from']`
+- `options.transform`: 路由快照转换钩子，可在同步前修改快照（原地修改或返回新对象）
 
 ### `<RouteBridge>` 组件
 

@@ -136,6 +136,7 @@ Higher-level helper: automatically syncs child app routes to the parent router.
 - `options.onLogin`: Login route interception callback
 - `options.loginRouteNames`: Route names that trigger login interception, default `['login']`
 - `options.stripQuery`: Query params to strip, default `['token', 'from']`
+- `options.transform`: Transform hook to modify the received route snapshot before syncing (modify in place or return a new object)
 
 ### `<RouteBridge>` Component
 
